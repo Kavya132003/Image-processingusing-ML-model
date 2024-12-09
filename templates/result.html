@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classification Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 400px;
+            max-height: 400px;
+        }
+        .probability-bar {
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin: 5px 0;
+            padding: 3px;
+        }
+        .probability-fill {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px;
+            border-radius: 2px;
+        }
+        .back-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background-color: #007399;
+        }
+    </style>
+</head>
+<body>
+    <h1>Classification Result</h1>
+    <div class="result-container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
+        </div>
+        <h2>Prediction: {{ class_name }}</h2>
+        <h3>Confidence: {{ confidence }}</h3>
+        
+        <h3>All Class Probabilities:</h3>
+        {% for prob in probabilities %}
+        <div class="probability-bar">
+            <div class="probability-fill" style="width: {{ prob.probability }}">
+                {{ prob.class }}: {{ prob.probability }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="/" class="back-btn">Upload Another Image</a>
+</body>
+</html> 
